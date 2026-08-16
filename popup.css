@@ -1,0 +1,164 @@
+:root {
+  --amber: #f59e0b;
+  --amber-deep: #b45309;
+  --honey: #fbbf24;
+  --dark: #451a03;
+  --bg: #1c1003;
+  --card: #2d1b06;
+  --card2: #3a2509;
+  --text: #fdf3e0;
+  --muted: #c9a86a;
+  --danger: #e05252;
+  --ok: #84cc16;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 360px;
+  max-height: 560px;
+  overflow-y: auto;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  padding: 12px;
+}
+
+header { margin-bottom: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.hexlogo {
+  width: 34px;
+  height: 38px;
+  position: relative;
+  flex: none;
+  background:
+    linear-gradient(135deg, var(--honey) 0 45%, #fcd34d 45% 55%, var(--honey) 55%);
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.hexlogo::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 11px;
+  margin: -6px 0 0 -8px;
+  background: var(--dark);
+  border-radius: 2px 2px 4px 4px;
+}
+.hexlogo::before {
+  content: '▭';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -14px 0 0 -8px;
+  font-size: 19px;
+  line-height: 1;
+  color: #fff8e1;
+  z-index: 1;
+  transform: scaleY(1.15);
+}
+h1 { font-size: 16px; letter-spacing: 0.4px; color: var(--honey); }
+.tag { color: var(--muted); font-size: 11px; }
+
+.toprow { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; gap: 8px; }
+select {
+  background: var(--card2);
+  color: var(--text);
+  border: 1px solid #5b3a10;
+  border-radius: 8px;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+.credit { color: var(--amber); text-decoration: none; font-size: 11px; }
+.credit:hover { text-decoration: underline; }
+
+.statsrow { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.chip {
+  background: var(--card);
+  border: 1px solid #5b3a10;
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+.actions { display: flex; gap: 6px; align-items: center; }
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--card2);
+  color: var(--text);
+}
+button:hover { filter: brightness(1.15); }
+.primary { background: var(--amber); color: #241200; font-weight: 600; flex: 1; }
+.primary:disabled { opacity: 0.55; cursor: default; }
+.danger { background: #4c1d1d; color: var(--danger); }
+.secondary { background: var(--card2); border: 1px solid #5b3a10; color: var(--honey); width: 100%; margin-top: 6px; }
+
+input[type="search"] {
+  flex: 1.4;
+  background: var(--card);
+  border: 1px solid #5b3a10;
+  border-radius: 8px;
+  color: var(--text);
+  padding: 6px 8px;
+  font-size: 12px;
+}
+input[type="search"]::placeholder { color: #8a6a35; }
+
+#restoreAllWrap { text-align: center; }
+
+main { margin-top: 10px; }
+.ncard {
+  background: var(--card);
+  border: 1px solid #5b3a10;
+  border-radius: var(--radius);
+  padding: 10px;
+  margin-bottom: 8px;
+}
+.ncard .sname { font-size: 13px; font-weight: 600; color: var(--honey); }
+.ncard .meta { color: var(--muted); font-size: 11px; margin: 3px 0 6px; }
+.ncard .dashboard { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px; }
+.ncard .dchip {
+  background: var(--card2);
+  border: 1px solid #6b4a15;
+  color: #f2d9a0;
+  border-radius: 999px;
+  font-size: 10.5px;
+  padding: 2px 8px;
+}
+.ncard .urlline {
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.ncard .rowbtns { display: flex; gap: 6px; margin-top: 6px; }
+.ncard .rowbtns button { font-size: 11.5px; padding: 5px 10px; }
+.ncard .rowbtns .restore-b { background: var(--amber); color: #241200; font-weight: 600; }
+.ncard .rowbtns .del-b { background: #4c1d1d; color: var(--danger); }
+
+.empty, .nores {
+  border: 1px dashed #5b3a10;
+  border-radius: var(--radius);
+  color: var(--muted);
+  text-align: center;
+  padding: 22px 12px;
+  margin-top: 10px;
+}
+
+#status {
+  margin-top: 8px;
+  color: var(--ok);
+  font-size: 11.5px;
+  min-height: 14px;
+  text-align: center;
+}

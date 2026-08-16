@@ -1,0 +1,16 @@
+{
+  "name": "tabnest",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TabNest — hive the window, keep the pages (MV3): one click stores every tab of the current window into a nest and closes them, freeing memory; restore one nest or all, entirely in-browser.",
+  "type": "module",
+  "scripts": {
+    "probe": "node tests/probe.mjs",
+    "zip": "node tools/zip.mjs",
+    "gen-icons": "node tools/gen-icons.mjs"
+  },
+  "devDependencies": {
+    "archiver": "^7.0.1",
+    "puppeteer": "^25.7.0"
+  }
+}

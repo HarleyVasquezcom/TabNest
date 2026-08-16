@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TabNest — hive the window, keep the pages</title>
+<style>
+  :root {
+    --amber: #f59e0b;
+    --honey: #fbbf24;
+    --dark: #451a03;
+    --bg: #141004;
+    --card: #241a08;
+    --text: #fdf3e0;
+    --muted: #c9a86a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px 40px;
+  }
+  .wrap { max-width: 760px; width: 100%; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--honey); font-size: 18px; }
+  .hexlogo {
+    width: 34px; height: 38px; position: relative; flex: none;
+    background: linear-gradient(135deg, var(--honey) 0 45%, #fcd34d 45% 55%, var(--honey) 55%);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  }
+  .hexlogo::after { content: ''; position: absolute; left: 50%; top: 50%; width: 16px; height: 11px; margin: -6px 0 0 -8px; background: var(--dark); border-radius: 2px; }
+  select { background: var(--card); color: var(--text); border: 1px solid #5b3a10; border-radius: 8px; padding: 5px 8px; }
+  .hero { text-align: center; margin-bottom: 44px; }
+  .hero h1 { font-size: 44px; color: var(--honey); letter-spacing: 1px; }
+  .hero p.tag { color: var(--muted); font-size: 17px; margin-top: 8px; }
+  .hexrow { display: flex; justify-content: center; gap: 14px; margin: 26px 0 30px; }
+  .hexrow i {
+    width: 74px; height: 84px; display: block;
+    background: linear-gradient(135deg, var(--honey) 0 45%, #fcd34d 45% 55%, var(--honey) 55%);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    animation: drift 5s ease-in-out infinite;
+  }
+  .hexrow i:nth-child(2) { animation-delay: 0.8s; transform: scale(0.82); opacity: 0.85; }
+  .hexrow i:nth-child(3) { animation-delay: 1.5s; }
+  .hexrow i:nth-child(4) { animation-delay: 0.4s; transform: scale(0.7); opacity: 0.7; }
+  @keyframes drift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero p.honest { color: var(--muted); font-size: 13.5px; line-height: 1.65; max-width: 620px; margin: 0 auto; }
+  .cta {
+    display: inline-block; margin-top: 28px; background: var(--amber); color: #241200;
+    font-weight: 700; padding: 12px 26px; border-radius: 999px; text-decoration: none; font-size: 15px;
+  }
+  .cta:hover { filter: brightness(1.12); }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 46px; }
+  .card { background: var(--card); border: 1px solid #5b3a10; border-radius: 14px; padding: 18px; }
+  .card h3 { color: var(--honey); font-size: 15px; margin-bottom: 8px; }
+  .card li { margin-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .perms { margin-top: 16px; }
+  .permnote { background: var(--card); border: 1px solid #5b3a10; border-radius: 14px; padding: 16px 18px; margin-top: 16px; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+  .permnote b { color: var(--honey); }
+  footer { margin-top: 44px; text-align: center; font-size: 12px; color: var(--muted); }
+  footer a { color: var(--amber); text-decoration: none; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="logo"><span class="hexlogo" aria-hidden="true"></span><span data-i18n="brand">TabNest</span></div>
+    <select id="langSel" data-i18n-lang aria-label="Language">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="pt">PT</option>
+      <option value="it">IT</option>
+      <option value="de">DE</option>
+    </select>
+  </div>
+
+  <section class="hero">
+    <h1 data-i18n="heroTitle">TabNest</h1>
+    <p class="tag" data-i18n="tagline">hive the window, keep the pages</p>
+    <div class="hexrow" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="honest" data-i18n="honest">With one click every tab of the current window is stored into a nest — title and URL — and the tabs are closed, freeing memory. Restore one nest or all of them later. Pages are never read: only titles and URLs are recorded, everything lives in local extension storage.</p>
+    <a class="cta" href="tabnest.zip" download data-i18n="dl">Download ZIP</a>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <h3 data-i18n="how">What it does</h3>
+      <ul>
+        <li data-i18n="h1">One click stores every tab of the current window (title + URL) and closes them, so Chrome can release their memory.</li>
+        <li data-i18n="h2">Each nest shows its saved pages grouped by domain, with a rough estimate of memory freed (≈12 MB per http(s) tab).</li>
+        <li data-i18n="h3">Restore any nest — tabs reopen — or restore all of them at once.</li>
+        <li data-i18n="h4">Search nests by name, tab title, URL or domain; delete one nest (two-step) or clear all.</li>
+        <li data-i18n="h5">The archive keeps the latest 40 nests; internal extension pages are never nested.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 data-i18n="perm">Permissions — minimal and used</h3>
+      <ul>
+        <li data-i18n="p1">storage — nests and settings live in chrome.storage.local.</li>
+        <li data-i18n="p2">tabs — reads the window’s tabs (title/URL) when nesting and closes them; reopens them on restore.</li>
+        <li data-i18n="p3">No host permissions: page content is never touched, nothing is sent anywhere.</li>
+      </ul>
+      <div class="permnote" data-i18n="note"><b>Honest note:</b> the memory figure is a deterministic estimate (12 MB per http(s) tab), not a Chrome measurement.</div>
+    </div>
+  </section>
+
+  <section class="card perms">
+    <h3 data-i18n="install">Install</h3>
+    <ul>
+      <li data-i18n="i1">Download tabnest.zip and unpack it somewhere permanent.</li>
+      <li data-i18n="i2">Open chrome://extensions and enable Developer mode.</li>
+      <li data-i18n="i3">Click “Load unpacked” and pick the folder (keep the folder after loading).</li>
+      <li data-i18n="i4">Open the popup, nest a window, restore when you need the tabs back.</li>
+    </ul>
+  </section>
+
+  <footer><a data-i18n="credit" href="https://www.linkedin.com/in/harleyvasquez/" target="_blank" rel="noreferrer">Built by Harley Vásquez</a></footer>
+</div>
+
+<script>
+  const I18N = {
+    en: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'hive the window, keep the pages', honest: 'With one click every tab of the current window is stored into a nest — title and URL — and the tabs are closed, freeing memory. Restore one nest or all of them later. Pages are never read: only titles and URLs are recorded, everything lives in local extension storage.', dl: 'Download ZIP', how: 'What it does', h1: 'One click stores every tab of the current window (title + URL) and closes them, so Chrome can release their memory.', h2: 'Each nest shows its saved pages grouped by domain, with a rough estimate of memory freed (≈12 MB per http(s) tab).', h3: 'Restore any nest — tabs reopen — or restore all of them at once.', h4: 'Search nests by name, tab title, URL or domain; delete one nest (two-step) or clear all.', h5: 'The archive keeps the latest 40 nests; internal extension pages are never nested.', perm: 'Permissions — minimal and used', p1: 'storage — nests and settings live in chrome.storage.local.', p2: 'tabs — reads the window’s tabs (title/URL) when nesting and closes them; reopens them on restore.', p3: 'No host permissions: page content is never touched, nothing is sent anywhere.', note: '<b>Honest note:</b> the memory figure is a deterministic estimate (12 MB per http(s) tab), not a Chrome measurement.', install: 'Install', i1: 'Download tabnest.zip and unpack it somewhere permanent.', i2: 'Open chrome://extensions and enable Developer mode.', i3: 'Click “Load unpacked” and pick the folder (keep the folder after loading).', i4: 'Open the popup, nest a window, restore when you need the tabs back.', credit: 'Built by Harley Vásquez' },
+    es: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'encierra la ventana, conserva las páginas', honest: 'Con un clic, cada pestaña de la ventana actual se guarda en un nido — título y URL — y las pestañas se cierran, liberando memoria. Restaura un nido o todos cuando quieras. Las páginas nunca se leen: solo se registran títulos y URLs, y todo vive en el almacenamiento local de la extensión.', dl: 'Descargar ZIP', how: 'Qué hace', h1: 'Un clic guarda cada pestaña de la ventana actual (título + URL) y las cierra, para que Chrome libere su memoria.', h2: 'Cada nido muestra sus páginas agrupadas por dominio, con un cálculo aproximado de memoria liberada (≈12 MB por pestaña http(s)).', h3: 'Restaura cualquier nido — las pestañas se reabren — o restaura todos de una vez.', h4: 'Busca nidos por nombre, título de pestaña, URL o dominio; borra uno (en dos pasos) o limpia todo.', h5: 'El archivo conserva los últimos 40 nidos; las páginas internas de la extensión nunca se encierran.', perm: 'Permisos — mínimos y usados', p1: 'storage — los nidos y ajustes viven en chrome.storage.local.', p2: 'tabs — lee las pestañas de la ventana (título/URL) al encerrar y las cierra; las reabre al restaurar.', p3: 'Sin permisos de host: el contenido de las páginas nunca se toca ni se envía a ningún sitio.', note: '<b>Nota honesta:</b> la cifra de memoria es una estimación determinista (12 MB por pestaña http(s)), no una medición de Chrome.', install: 'Instalación', i1: 'Descarga tabnest.zip y descomprímelo en un lugar permanente.', i2: 'Abre chrome://extensions y activa el modo desarrollador.', i3: 'Haz clic en “Cargar descomprimida” y elige la carpeta (consérvala).', i4: 'Abre el popup, encierra una ventana y restaura cuando necesites las pestañas.', credit: 'Creado por Harley Vásquez' },
+    fr: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'rucher la fenêtre, garder les pages', honest: 'D’un clic, chaque onglet de la fenêtre actuelle est rangé dans un nid — titre et URL — et les onglets se ferment, libérant de la mémoire. Restaurez un nid ou tous plus tard. Les pages ne sont jamais lues : seuls titres et URL sont enregistrés, tout vit dans le stockage local de l’extension.', dl: 'Télécharger le ZIP', how: 'Ce qu’il fait', h1: 'Un clic range chaque onglet de la fenêtre actuelle (titre + URL) et les ferme, pour que Chrome libère leur mémoire.', h2: 'Chaque nid montre ses pages groupées par domaine, avec une estimation grossière de mémoire libérée (≈12 Mo par onglet http(s)).', h3: 'Restaurez n’importe quel nid — les onglets se rouvrent — ou tout d’un coup.', h4: 'Recherchez les nids par nom, titre d’onglet, URL ou domaine ; supprimez-en un (en deux temps) ou effacez tout.', h5: 'L’archive garde les 40 derniers nids ; les pages internes de l’extension ne sont jamais rangées.', perm: 'Permissions — minimales et utilisées', p1: 'storage — les nids et réglages vivent dans chrome.storage.local.', p2: 'tabs — lit les onglets de la fenêtre (titre/URL) au rangement et les ferme ; les rouvre à la restauration.', p3: 'Aucune permission d’hôte : le contenu des pages n’est jamais touché, rien n’est envoyé.', note: '<b>Note honnête :</b> la mémoire est une estimation déterministe (12 Mo par onglet http(s)), pas une mesure de Chrome.', install: 'Installation', i1: 'Téléchargez tabnest.zip et décompressez-le dans un emplacement permanent.', i2: 'Ouvrez chrome://extensions et activez le mode développeur.', i3: 'Cliquez sur « Charger l’extension non empaquetée » et choisissez le dossier (conservez-le).', i4: 'Ouvrez le popup, rangez une fenêtre, restaurez quand vous avez besoin des onglets.', credit: 'Créé par Harley Vásquez' },
+    pt: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'aninhe a janela, guarde as páginas', honest: 'Com um clique, cada guia da janela atual é guardada em um ninho — título e URL — e as guias são fechadas, liberando memória. Restaure um ninho ou todos depois. As páginas nunca são lidas: só títulos e URLs são registrados, e tudo vive no armazenamento local da extensão.', dl: 'Baixar ZIP', how: 'O que faz', h1: 'Um clique guarda cada guia da janela atual (título + URL) e as fecha, para o Chrome liberar a memória.', h2: 'Cada ninho mostra suas páginas agrupadas por domínio, com uma estimativa aproximada de memória liberada (≈12 MB por guia http(s)).', h3: 'Restaure qualquer ninho — as guias reabrem — ou restaure todos de uma vez.', h4: 'Pesquise ninhos por nome, título de guia, URL ou domínio; exclua um (em duas etapas) ou limpe tudo.', h5: 'O arquivo guarda os últimos 40 ninhos; páginas internas da extensão nunca são aninhadas.', perm: 'Permissões — mínimas e usadas', p1: 'storage — ninhos e configurações ficam no chrome.storage.local.', p2: 'tabs — lê as guias da janela (título/URL) ao aninhar e as fecha; reabre-as ao restaurar.', p3: 'Sem permissões de host: o conteúdo das páginas nunca é tocado, nada é enviado.', note: '<b>Nota honesta:</b> o número de memória é uma estimativa determinística (12 MB por guia http(s)), não uma medição do Chrome.', install: 'Instalação', i1: 'Baixe o tabnest.zip e descompacte em um lugar permanente.', i2: 'Abra chrome://extensions e ative o modo desenvolvedor.', i3: 'Clique em “Carregar sem compactação” e escolha a pasta (mantenha-a).', i4: 'Abra o popup, aninhe uma janela e restaure quando precisar das guias.', credit: 'Criado por Harley Vásquez' },
+    it: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'nidifica la finestra, conserva le pagine', honest: 'Con un clic ogni scheda della finestra attuale viene riposta in un nido — titolo e URL — e le schede si chiudono, liberando memoria. Ripristina un nido o tutti quando vuoi. Le pagine non vengono mai lette: si registrano solo titoli e URL, tutto vive nello storage locale dell’estensione.', dl: 'Scarica ZIP', how: 'Cosa fa', h1: 'Un clic ripone ogni scheda della finestra attuale (titolo + URL) e la chiude, così Chrome libera la memoria.', h2: 'Ogni nido mostra le pagine salvate raggruppate per dominio, con una stima approssimativa della memoria liberata (≈12 MB per scheda http(s)).', h3: 'Ripristina qualsiasi nido — le schede si riaprono — oppure tutti insieme.', h4: 'Cerca nidi per nome, titolo di scheda, URL o dominio; elimina uno (in due passaggi) o cancella tutto.', h5: 'L’archivio conserva gli ultimi 40 nidi; le pagine interne dell’estensione non vengono mai nidificate.', perm: 'Permessi — minimi e usati', p1: 'storage — nidi e impostazioni vivono in chrome.storage.local.', p2: 'tabs — legge le schede della finestra (titolo/URL) quando nidifica e le chiude; le riapre al ripristino.', p3: 'Nessun permesso host: il contenuto delle pagine non viene mai toccato, nulla viene inviato.', note: '<b>Nota onesta:</b> la memoria è una stima deterministica (12 MB per scheda http(s)), non una misurazione di Chrome.', install: 'Installazione', i1: 'Scarica tabnest.zip e decomprimilo in un posto permanente.', i2: 'Apri chrome://extensions e attiva la modalità sviluppatore.', i3: 'Clicca su “Carica estensione non pacchettizzata” e scegli la cartella (conservala).', i4: 'Apri il popup, nidifica una finestra e ripristina quando ti servono le schede.', credit: 'Creato da Harley Vásquez' },
+    de: { brand: 'TabNest', heroTitle: 'TabNest', tagline: 'Fenster aufstapeln, Seiten behalten', honest: 'Mit einem Klick wird jeder Tab des aktuellen Fensters in einem Nest abgelegt — Titel und URL — und die Tabs werden geschlossen, was Speicher freigibt. Stelle später ein Nest oder alle wieder her. Seiten werden nie gelesen: Es werden nur Titel und URLs aufgezeichnet, alles lebt im lokalen Erweiterungsspeicher.', dl: 'ZIP herunterladen', how: 'Was es tut', h1: 'Ein Klick legt jeden Tab des aktuellen Fensters ab (Titel + URL) und schließt ihn, damit Chrome den Speicher freigibt.', h2: 'Jedes Nest zeigt die gespeicherten Seiten nach Domain gruppiert, mit einer groben Schätzung des freigegebenen Speichers (≈12 MB pro http(s)-Tab).', h3: 'Stelle jedes Nest wieder her — Tabs öffnen sich neu — oder alle auf einmal.', h4: 'Suche Nester nach Name, Tab-Titel, URL oder Domain; lösche eines (in zwei Schritten) oder lösche alles.', h5: 'Das Archiv behält die letzten 40 Nester; interne Erweiterungsseiten werden nie abgelegt.', perm: 'Berechtigungen — minimal und genutzt', p1: 'storage — Nester und Einstellungen leben in chrome.storage.local.', p2: 'tabs — liest die Tabs des Fensters (Titel/URL) beim Ablegen und schließt sie; öffnet sie beim Wiederherstellen neu.', p3: 'Keine Host-Berechtigungen: Seiteninhalte werden nie berührt, nichts wird gesendet.', note: '<b>Ehrlicher Hinweis:</b> Die Speicherzahl ist eine deterministische Schätzung (12 MB pro http(s)-Tab), keine Chrome-Messung.', install: 'Installation', i1: 'Lade tabnest.zip herunter und entpacke es an einen dauerhaften Ort.', i2: 'Öffne chrome://extensions und aktiviere den Entwicklermodus.', i3: 'Klicke auf „Entpackte Erweiterung laden“ und wähle den Ordner (behalte ihn).', i4: 'Öffne das Popup, staple ein Fenster und stelle wieder her, wenn du die Tabs brauchst.', credit: 'Erstellt von Harley Vásquez' },
+  };
+  const KEY = 'tn:landingLang';
+  const SUPPORTED = ['en', 'es', 'fr', 'pt', 'it', 'de'];
+  async function current() {
+    let lang;
+    try { const s = await chrome.storage.local.get(KEY); lang = s[KEY]; } catch (e) { /* fallback */ }
+    if (typeof lang !== 'string' || !SUPPORTED.includes(lang)) {
+      lang = (navigator.language || 'en').toLowerCase().split('-')[0];
+      if (!SUPPORTED.includes(lang)) lang = 'en';
+    }
+    return lang;
+  }
+  async function apply() {
+    const lang = await current();
+    const d = I18N[lang] || I18N.en;
+    document.title = d.heroTitle + ' — ' + d.tagline;
+    for (const el of document.querySelectorAll('[data-i18n]')) {
+      const k = el.getAttribute('data-i18n');
+      if (k === 'note') { el.innerHTML = d[k]; continue; }
+      el.textContent = d[k] || I18N.en[k];
+    }
+    const sel = document.querySelector('[data-i18n-lang]');
+    if (sel) sel.value = lang;
+  }
+  document.querySelector('[data-i18n-lang]').addEventListener('change', async (e) => {
+    try { await chrome.storage.local.set({ [KEY]: e.target.value }); } catch (err) { localStorage.setItem(KEY, e.target.value); }
+    await apply();
+  });
+  apply();
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TabNest</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="hexlogo" aria-hidden="true"></span>
+    <div>
+      <h1 data-i18n="name">TabNest</h1>
+      <p class="tag" data-i18n="tagline">hive the window, keep the pages</p>
+    </div>
+  </div>
+  <div class="toprow">
+    <select id="langSel" data-i18n-lang aria-label="Language">
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+      <option value="fr">FR</option>
+      <option value="pt">PT</option>
+      <option value="it">IT</option>
+      <option value="de">DE</option>
+    </select>
+    <a class="credit" data-i18n="credit" href="https://www.linkedin.com/in/harleyvasquez/" target="_blank" rel="noreferrer">Built by Harley Vásquez</a>
+  </div>
+</header>
+
+<div class="statsrow">
+  <span id="statsSum" class="chip">0 tabs · 0 MB</span>
+  <span class="chip" id="lastRow">Last nest · never</span>
+</div>
+
+<section class="actions">
+  <button id="nestBtn" class="primary">Nest this window</button>
+  <input id="searchInput" type="search" data-i18n="search" placeholder="Search nests, tabs or domains…">
+  <button id="delAllBtn" class="danger" title="Clear all">Clear all</button>
+</section>
+<div id="restoreAllWrap"><button id="restoreAllBtn" class="secondary">Restore all</button></div>
+
+<main id="list"></main>
+<div id="status" role="status"></div>
+
+<script src="i18n.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
