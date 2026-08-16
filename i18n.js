@@ -2,8 +2,8 @@
   en: {
     name: 'TabNest',
     tagline: 'hive the window, keep the pages',
-    honest: 'With one click every tab of the current window is stored into a nest — title and URL — and the tabs are closed, freeing memory. Restore one nest or all of them later. Pages are never read: only titles and URLs are recorded, everything lives in local extension storage.',
     nestAll: 'Nest this window',
+    statsSum: '{{n}} tabs · {{mb}} MB',
     empty: 'No nests yet — click "Nest this window" to hive the tabs.',
     nores: 'No nests match your search.',
     search: 'Search nests, tabs or domains…',
@@ -27,8 +27,8 @@
   es: {
     name: 'TabNest',
     tagline: 'encierra la ventana, conserva las páginas',
-    honest: 'Con un clic, cada pestaña de la ventana actual se guarda en un nido — título y URL — y las pestañas se cierran, liberando memoria. Restaura un nido o todos cuando quieras. Las páginas nunca se leen: solo se registran títulos y URLs, y todo vive en el almacenamiento local de la extensión.',
     nestAll: 'Encerrar esta ventana',
+    statsSum: '{{n}} pestañas · {{mb}} MB',
     empty: 'Aún no hay nidos — pulsa "Encerrar esta ventana" para guardar las pestañas.',
     nores: 'Ningún nido coincide con tu búsqueda.',
     search: 'Busca nidos, pestañas o dominios…',
@@ -52,8 +52,8 @@
   fr: {
     name: 'TabNest',
     tagline: 'rucher la fenêtre, garder les pages',
-    honest: 'D’un clic, chaque onglet de la fenêtre actuelle est rangé dans un nid — titre et URL — et les onglets se ferment, libérant de la mémoire. Restaurez un nid ou tous plus tard. Les pages ne sont jamais lues : seuls titres et URL sont enregistrés, tout vit dans le stockage local de l’extension.',
     nestAll: 'Ranger cette fenêtre',
+    statsSum: '{{n}} onglets · {{mb}} Mo',
     empty: 'Aucun nid pour l’instant — cliquez sur « Ranger cette fenêtre » pour ranger les onglets.',
     nores: 'Aucun nid ne correspond à votre recherche.',
     search: 'Rechercher nids, onglets ou domaines…',
@@ -77,8 +77,8 @@
   pt: {
     name: 'TabNest',
     tagline: 'aninhe a janela, guarde as páginas',
-    honest: 'Com um clique, cada guia da janela atual é guardada em um ninho — título e URL — e as guias são fechadas, liberando memória. Restaure um ninho ou todos depois. As páginas nunca são lidas: só títulos e URLs são registrados, e tudo vive no armazenamento local da extensão.',
     nestAll: 'Aninhar esta janela',
+    statsSum: '{{n}} guias · {{mb}} MB',
     empty: 'Ainda não há ninhos — clique em "Aninhar esta janela" para guardar as guias.',
     nores: 'Nenhum ninho corresponde à pesquisa.',
     search: 'Pesquise ninhos, guias ou domínios…',
@@ -102,8 +102,8 @@
   it: {
     name: 'TabNest',
     tagline: 'nidifica la finestra, conserva le pagine',
-    honest: 'Con un clic ogni scheda della finestra attuale viene riposta in un nido — titolo e URL — e le schede si chiudono, liberando memoria. Ripristina un nido o tutti quando vuoi. Le pagine non vengono mai lette: si registrano solo titoli e URL, tutto vive nello storage locale dell’estensione.',
     nestAll: 'Nidifica questa finestra',
+    statsSum: '{{n}} schede · {{mb}} MB',
     empty: 'Ancora nessun nido — clicca su "Nidifica questa finestra" per riporre le schede.',
     nores: 'Nessun nido corrisponde alla ricerca.',
     search: 'Cerca nidi, schede o domini…',
@@ -127,8 +127,8 @@
   de: {
     name: 'TabNest',
     tagline: 'Fenster aufstapeln, Seiten behalten',
-    honest: 'Mit einem Klick wird jeder Tab des aktuellen Fensters in einem Nest abgelegt — Titel und URL — und die Tabs werden geschlossen, was Speicher freigibt. Stelle später ein Nest oder alle wieder her. Seiten werden nie gelesen: Es werden nur Titel und URLs aufgezeichnet, alles lebt im lokalen Erweiterungsspeicher.',
     nestAll: 'Dieses Fenster aufstapeln',
+    statsSum: '{{n}} Tabs · {{mb}} MB',
     empty: 'Noch keine Nester — klicke auf „Dieses Fenster aufstapeln", um die Tabs abzulegen.',
     nores: 'Kein Nest passt zu deiner Suche.',
     search: 'Nester, Tabs oder Domains durchsuchen…',
@@ -190,12 +190,13 @@ async function __tnApply(root) {
   CURRENT = await __tnNow();
   const d = __tnDict(CURRENT);
   root = root || document;
-  for (const el of root.querySelectorAll('[data-i18n]')) {
-    const k = el.getAttribute('data-i18n');
+  for (const el of root.querySelectorAll('[data-i18n], [data-i18n-title]')) {
+    const k = el.getAttribute('data-i18n') || el.getAttribute('data-i18n-title');
     let v = d[k];
     if (typeof v !== 'string') v = I18N[FALLBACK][k] || k;
-    let t = el.tagName.toLowerCase();
+    const t = el.tagName.toLowerCase();
     if (t === 'input' || t === 'textarea') el.placeholder = v;
+    else if (el.hasAttribute('data-i18n-title')) el.title = v;
     else el.textContent = v;
   }
   const langSel = root.querySelector('[data-i18n-lang]');

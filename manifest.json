@@ -4,9 +4,6 @@
   "version": "1.0.0",
   "description": "TabNest — hive the window, keep the pages: close every tab of a window into a named nest (with an estimated memory saving), then restore one nest or all of them whenever you want.",
   "permissions": ["storage", "tabs"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

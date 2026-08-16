@@ -29,6 +29,16 @@ No host permissions: page content is never read or modified.
 3. Click "Load unpacked" and pick the folder (keep the folder after loading).
 4. Open the popup, nest a window, restore when you need the tabs back.
 
+## Verify (headless probe)
+
+Clone the repo, then:
+
+```bash
+npm install
+npm run zip    # dist/tabnest.zip + landing copy (byte-identical)
+npm run probe  # hermetic end-to-end probe against a headless Chrome (extension + landing)
+```
+
 ---
 
 # TabNest (ES)
@@ -61,6 +71,16 @@ Sin permisos de host: el contenido de las páginas nunca se lee ni modifica.
 2. Abre `chrome://extensions` y activa el modo desarrollador.
 3. Haz clic en "Cargar descomprimida" y elige la carpeta (consérvala después de cargarla).
 4. Abre el popup, encierra una ventana y restaura cuando necesites las pestañas de vuelta.
+
+## Verificación (probe headless)
+
+Clona el repo y ejecuta:
+
+```bash
+npm install
+npm run zip    # dist/tabnest.zip + copia en landing (byte-idénticos)
+npm run probe  # probe hermético end-to-end contra un Chrome headless (extensión + landing)
+```
 
 ---
 

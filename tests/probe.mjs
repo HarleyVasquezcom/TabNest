@@ -37,6 +37,11 @@ const EXPECTED_LABELS = {
   },
 };
 
+const EXPECTED_STATS = {
+  en: '2 tabs · 24 MB', es: '2 pestañas · 24 MB', fr: '2 onglets · 24 Mo',
+  pt: '2 guias · 24 MB', it: '2 schede · 24 MB', de: '2 Tabs · 24 MB',
+};
+
 let passes = 0;
 let failures = 0;
 const problems = [];
@@ -161,10 +166,11 @@ try {
   const hasAllUrls = (m) => /<all_urls>/.test(JSON.stringify(m));
   check(
     'permission surface: storage + tabs only, no host permissions',
-    JSON.stringify(manifest.permissions) === JSON.stringify(['storage', 'tabs']) &&
-      Array.isArray(manifest.content_scripts) === false &&
-      Array.isArray(manifest.host_permissions) === false &&
-      !hasAllUrls(manifest),
+JSON.stringify(manifest.permissions) === JSON.stringify(['storage', 'tabs']) &&
+  Array.isArray(manifest.content_scripts) === false &&
+  Array.isArray(manifest.host_permissions) === false &&
+  !('background' in manifest) &&
+  !hasAllUrls(manifest),
     JSON.stringify(manifest.permissions)
   );
 
@@ -306,6 +312,15 @@ try {
     if (ok) {
       const credit = await popup.evaluate(() => document.querySelector('.credit')?.textContent);
       check(`language ${code}: credit localized`, credit === EXPECTED_LABELS.credit[code], credit);
+      await popup.evaluate(async (sp) => {
+        await chrome.storage.local.set({ 'tn:nests': [{ id: 'stats', ts: 1, name: 'x', tabs: [{ url: sp, title: 'a' }, { url: sp, title: 'b' }] }] });
+      }, SITE_PAGE);
+      await popup.goto(popupUrl, { waitUntil: 'domcontentloaded' });
+      await popup.waitForFunction(() => document.getElementById('nestBtn') !== null, { timeout: 8000, polling: 100 });
+      await sleep(300);
+      const statsText = await popup.evaluate(() => document.getElementById('statsSum').textContent);
+      check(`language ${code}: live stats row localized`, statsText === EXPECTED_STATS[code], statsText);
+      await popup.evaluate(() => chrome.storage.local.set({ 'tn:nests': [] }));
       await popup.goto(popupUrl, { waitUntil: 'domcontentloaded' });
       await popup.waitForFunction(() => document.querySelector('[data-i18n="tagline"]')?.textContent !== '', { timeout: 8000, polling: 100 });
       const persisted = await popup.evaluate((exp) => document.querySelector('[data-i18n="tagline"]')?.textContent === exp, EXPECTED_LABELS.tagline[code]);

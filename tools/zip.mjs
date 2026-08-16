@@ -6,9 +6,8 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SLUG = path.basename(ROOT);
 const FILES = [
-  'manifest.json',
-  'background.js',
-  'i18n.js',
+'manifest.json',
+'i18n.js',
   'popup.html',
   'popup.css',
   'popup.js',

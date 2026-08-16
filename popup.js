@@ -110,7 +110,7 @@ function filtered() {
 function render() {
   const listEl = document.getElementById('list');
   const total = nests.reduce((a, n) => a + n.tabs.length, 0);
-  document.getElementById('statsSum').textContent = total + ' tabs · ' + ramMB(total) + ' MB';
+  document.getElementById('statsSum').textContent = L('statsSum', { n: total, mb: ramMB(total) });
   const last = nests.length ? nests[0].ts : 0;
   document.getElementById('lastRow').textContent = L('lastNest') + ' · ' + (last ? tsName(last) : L('never'));
 
@@ -189,8 +189,11 @@ function render() {
 
 async function init() {
   await window.__tnApply(document);
-  const s = await getLocal(K.NESTS);
+  const s = await getLocal([K.NESTS, K.LAST]);
   nests = Array.isArray(s[K.NESTS]) ? s[K.NESTS] : [];
+  if (!Array.isArray(s[K.NESTS]) || typeof s[K.LAST] !== 'number') {
+    await setLocal({ [K.NESTS]: nests, [K.LAST]: typeof s[K.LAST] === 'number' ? s[K.LAST] : 0 });
+  }
   render();
 
   document.getElementById('nestBtn').addEventListener('click', () => nestWindow());
